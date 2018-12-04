@@ -25,6 +25,8 @@ resource "aws_api_gateway_integration" "integration" {
   request_templates {
     "application/json" = "${var.request_template}"
   }
+
+  depends_on = ["aws_api_gateway_method.method"]
 }
 
 resource "aws_api_gateway_method_response" "200" {
@@ -40,6 +42,8 @@ resource "aws_api_gateway_method_response" "200" {
   response_models {
     "application/json" = "${var.response_model}"
   }
+
+  depends_on = ["aws_api_gateway_method.method"]
 }
 
 resource "aws_api_gateway_method_response" "400" {
@@ -55,6 +59,8 @@ resource "aws_api_gateway_method_response" "400" {
   response_models {
     "application/json" = "Error"
   }
+
+  depends_on = ["aws_api_gateway_method.method"]
 }
 
 resource "aws_api_gateway_integration_response" "200" {
@@ -66,6 +72,8 @@ resource "aws_api_gateway_integration_response" "200" {
   response_parameters {
     "method.response.header.Access-Control-Allow-Origin" = "'*'"
   }
+
+  depends_on = ["aws_api_gateway_method.method", "aws_api_gateway_method_response.200"]
 }
 
 resource "aws_api_gateway_integration_response" "400" {
@@ -84,8 +92,10 @@ resource "aws_api_gateway_integration_response" "400" {
     "application/json" = <<EOF
 #set($message = $input.path('$.errorMessage'))
 {
-    "message": "$message"
+  "message": "$message"
 }
 EOF
   }
+
+  depends_on = ["aws_api_gateway_method.method", "aws_api_gateway_method_response.400"]
 }
