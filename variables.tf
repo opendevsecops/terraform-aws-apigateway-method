@@ -18,6 +18,21 @@ variable "authorization" {
   type = "string"
 }
 
+variable "authorizer_id" {
+  type = "string"
+  default = ""
+}
+
+variable "authorization_scopes" {
+  type = "string"
+  default = ""
+}
+
+variable "api_key_required" {
+  type = "string"
+  default = ""
+}
+
 variable "request_template" {
   type = "string"
 }
@@ -32,9 +47,14 @@ variable "response_model" {
   default = "Empty"
 }
 
-variable "request_validator" {
+variable "request_validator_id" {
   type    = "string"
   default = ""
+}
+
+variable "request_parameters" {
+  type    = "map"
+  default = {}
 }
 
 # depends_on workaround

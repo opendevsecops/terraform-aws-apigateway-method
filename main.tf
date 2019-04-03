@@ -5,7 +5,11 @@ resource "aws_api_gateway_method" "method" {
   resource_id          = "${var.api_resource_id}"
   http_method          = "${var.method}"
   authorization        = "${var.authorization}"
-  request_validator_id = "${var.request_validator}"
+  authorizer_id        = "${var.authorizer_id}"
+  authorization_scopes = "${var.authorization_scopes}"
+  api_key_required     = "${var.api_key_required}"
+  request_validator_id = "${var.request_validator_id}"
+  request_parameters   = "${var.request_parameters}"
 
   request_models {
     "application/json" = "${var.request_model}"
