@@ -24,8 +24,8 @@ variable "authorizer_id" {
 }
 
 variable "authorization_scopes" {
-  type = "string"
-  default = ""
+  type = "list"
+  default = []
 }
 
 variable "api_key_required" {
