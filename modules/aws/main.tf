@@ -90,7 +90,7 @@ resource "aws_api_gateway_integration_response" "400" {
 
   response_templates = {
     "application/json" = <<EOF
-#set($message = $input.path('$.errorMessage'))
+#set($message = $util.escapeJavaScript($input.path('$.errorMessage')))
 {
   "message": "$message"
 }
